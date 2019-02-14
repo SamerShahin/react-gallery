@@ -15,7 +15,13 @@ const getImageStyle = item => ({
 const Gallery = ({ layout }) => (
     <div style={{ height: layout.height }}>
         {layout.items.map(item => (
-            <div style={getImageStyle(item)} alt={item.idx}/>
+            <div style={getImageStyle(item)} alt={item.idx} key={"gItem-"+item.idx}>
+                <div className="inner-container">
+                    <div>
+                        <button onClick={(e)=>{console.log("item clicked", item.idx)}}>potatoes</button>
+                    </div>
+                </div>
+            </div>
         ))}
     </div>
 );
