@@ -1,3 +1,7 @@
+export const GALLERY_LAYOUTS  = {
+    MASONRY:"masonry",
+    GRID: "grid"
+};
 export const items = [
     {id: 'a466b258c6b5e2096fa546c86aae8fa2',url: 'https://static.wixstatic.com/media/8bb438_eeef61d83253480ab7bbdb07692b4c90.jpg',width: 5494,height: 3840},
     {id: 'a081f588eff30a9f8b6fcd0f4889eac3',url: 'https://static.wixstatic.com/media/8bb438_2ff4f1995c0e40d49158d5225eeb465e.jpg',width: 4200,height: 2800},
@@ -12,11 +16,11 @@ export const items = [
     {id: '22883fe4ca22b25b5b19c8640d21d524',url: 'https://static.wixstatic.com/media/8bb438_2a22b3e85bb1434e81f6fbd4878fb4ae.jpg',width: 5600,height: 3728},
 ];
 
-export const styleParams = {
+export const masonryStyleParams = {
     sampleSize: 100,
-    isVertical: false,
+    isVertical: true,
     gallerySize: 400,
-    minItemSize: 50,
+    minItemSize: 400,
     groupSize: 3,
     chooseBestGroup: true,
     groupTypes: '1,2h,2v,3t,3b,3l,3r,3v,3h',
@@ -29,17 +33,38 @@ export const styleParams = {
     galleryMargin: 0,
     floatingImages: 0,
     cubeRatio: 1,
-    fixedColumns: 0,
+    fixedColumns: 5,
     groupsPerStrip: 0,
     oneRow: false,
     placeGroupsLtr: false,
 };
+
+export const gridStyleParams = {
+        sampleSize: 100,
+        isVertical: true,
+        gallerySize: 400,
+        minItemSize: 50,
+        groupSize: 1,
+        chooseBestGroup: true,
+        groupTypes: '1',
+        rotatingGroupTypes: '',
+        cubeImages: true,
+        cubeType: 'fill',
+        smartCrop: false,
+        collageDensity: '0.8',
+        imageMargin: 5,
+        galleryMargin: 0,
+        floatingImages: 0,
+        cubeRatio: 1,
+        fixedColumns: 5,
+        groupsPerStrip: 0,
+        oneRow: false,
+        placeGroupsLtr: false,
+};
+
 export const container = {
     width: window.innerWidth,
     height: window.innerHeight
 };
-export default  {
-    items,
-    styleParams,
-    container
-}
+export const ITEM_HEADER_HEIGHT = 76;
+export const ITEM_FOOTER_HEIGHT = 70;
