@@ -2,17 +2,17 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {ITEM_HEADER_HEIGHT, ITEM_FOOTER_HEIGHT, GALLERY_LAYOUTS} from "../../common/constants";
 
-const getContainerStyle = (item, galleryLayout) => {
+const getContainerStyle = (item, galleryLayout,columnsCount) => {
     let height, top;
     let K = ITEM_HEADER_HEIGHT + ITEM_FOOTER_HEIGHT;
     switch (galleryLayout) {
         case GALLERY_LAYOUTS.MASONRY:
+        case GALLERY_LAYOUTS.GRID_BOX:
             height = item.height;
             top = item.offset.top;
             break;
         case GALLERY_LAYOUTS.GRID:
-        default:
-            top = item.offset.top + K * (Math.floor(item.idx / 5));
+            top = item.offset.top + K * (Math.floor(item.idx / columnsCount));
             height = item.height + K;
             break;
     }
@@ -33,6 +33,7 @@ const getImageStyle = (item, galleryLayout) => {
 
     switch (galleryLayout) {
         case GALLERY_LAYOUTS.MASONRY:
+        case GALLERY_LAYOUTS.GRID_BOX:
             height = Math.max(item.height - K, 0);
             break;
         case GALLERY_LAYOUTS.GRID:
@@ -50,28 +51,31 @@ const getImageStyle = (item, galleryLayout) => {
 
     }
 };
-const Gallery = ({layout, galleryLayout}) => (
-    <div style={{height: layout.height, position: "relative"}}>
-        {layout.items.map((item) => (
-            <div style={getContainerStyle(item, galleryLayout)} alt={item.idx} key={"gItem-" + item.idx}>
-                <div className="item-header centering-element"
-                     style={{height: ITEM_HEADER_HEIGHT + "px", width: "100%"}}>
-                    <label> item header</label>
+const Gallery = ({layout, galleryLayout}) => {
+    let columnsCount = layout.columns.length;
+    return (
+        <div style={{height: layout.height, position: "relative"}}>
+            {layout.items.map((item) => (
+                <div style={getContainerStyle(item, galleryLayout,columnsCount)} alt={item.idx} key={"gItem-" + item.idx}>
+                    <div className="item-header centering-element"
+                         style={{height: ITEM_HEADER_HEIGHT + "px", width: "100%"}}>
+                        <label> item header</label>
+                    </div>
+                    <div className={"item-image"} style={getImageStyle(item, galleryLayout)}>
+                    </div>
+                    <div className="item-footer centering-element"
+                         style={{height: ITEM_FOOTER_HEIGHT + "px", width: "100%"}}>
+                        <label> item footer</label>
+                    </div>
                 </div>
-                <div className={"item-image"} style={getImageStyle(item, galleryLayout)}>
-                </div>
-                <div className="item-footer centering-element"
-                     style={{height: ITEM_FOOTER_HEIGHT + "px", width: "100%"}}>
-                    <label> item footer</label>
-                </div>
-            </div>
-        ))}
-    </div>
-);
+            ))}
+        </div>
+    )
+};
 
 Gallery.propTypesypes = {
     layout: PropTypes.object.isRequired,
-    galleryLayout: PropTypes.oneOf([GALLERY_LAYOUTS.MASONRY, GALLERY_LAYOUTS.GRID]).isRequired
+    galleryLayout: PropTypes.oneOf([GALLERY_LAYOUTS.MASONRY, GALLERY_LAYOUTS.GRID, GALLERY_LAYOUTS.GRID_BOX]).isRequired
 
 };
 

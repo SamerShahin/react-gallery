@@ -17,6 +17,7 @@ class GalleryLayouterComponent extends Component {
         super(props);
         this.getLayout = this.getLayout.bind(this);
         this.getLayoutParams = this.getLayoutParams.bind(this);
+        this.getItems = this.getItems.bind(this);
         this.changeItemsHeightGrid = this.changeItemsHeightGrid.bind(this);
 
         this.state = {
@@ -27,7 +28,7 @@ class GalleryLayouterComponent extends Component {
 
     getLayoutParams(props) {
         let styleParams = this.getStyleParams(props.galleryLayout);
-        let modifiedItems = this.changeItemsHeightMasonry(items, styleParams);
+        let modifiedItems = this.getItems(props.galleryLayout, items, styleParams);
         return {
             styleParams,
             items: modifiedItems,
@@ -35,9 +36,12 @@ class GalleryLayouterComponent extends Component {
         }
     }
 
-    getStyleParams = function (layout) {
-        console.log("layout", layout);
-        return layout === GALLERY_LAYOUTS.GRID ? gridStyleParams : masonryStyleParams;
+    getItems(galleryLayout, items, styleParams) {
+        return galleryLayout === GALLERY_LAYOUTS.MASONRY ? this.changeItemsHeightMasonry(items, styleParams) : this.changeItemsHeightGrid(items);
+    }
+
+    getStyleParams = function (galleryLayout) {
+        return galleryLayout === GALLERY_LAYOUTS.MASONRY ? masonryStyleParams : gridStyleParams;
     };
     changeItemsHeightMasonry = function (items, styleParams) {
         /**
@@ -58,7 +62,6 @@ class GalleryLayouterComponent extends Component {
         return items;
     };
     changeItemsHeightGrid = function (items) {
-
         return items;
     };
 
@@ -69,14 +72,14 @@ class GalleryLayouterComponent extends Component {
     render() {
         return (
             <div>
-                <Gallery layout={this.getLayout()} galleryLayout={this.props.galleryLayout} />
+                <Gallery layout={this.getLayout()} galleryLayout={this.props.galleryLayout}/>
             </div>
         );
     }
 }
 
 GalleryLayouterComponent.propTypes = {
-    galleryLayout: PropTypes.oneOf([GALLERY_LAYOUTS.MASONRY, GALLERY_LAYOUTS.GRID]).isRequired
+    galleryLayout: PropTypes.oneOf([GALLERY_LAYOUTS.MASONRY, GALLERY_LAYOUTS.GRID, GALLERY_LAYOUTS.GRID_BOX]).isRequired
 };
 
 export default GalleryLayouterComponent;

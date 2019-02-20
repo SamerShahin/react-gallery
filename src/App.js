@@ -30,10 +30,12 @@ class App extends Component {
                            value={GALLERY_LAYOUTS.MASONRY}/><label>Masonry</label><br/>
                     <input type="radio" name="gallery-layout" value={GALLERY_LAYOUTS.GRID}
                            defaultChecked/><label>Grid</label><br/>
+                    <input type="radio" name="gallery-layout" value={GALLERY_LAYOUTS.GRID_BOX}/><label>Grid Box</label><br/>
                 </div>
                 {/*a dumb way to force complete re-render once the layout change*/}
                 {galleryLayout === GALLERY_LAYOUTS.MASONRY && <GalleryLayouterComponent galleryLayout={galleryLayout}/>}
                 {galleryLayout === GALLERY_LAYOUTS.GRID && <GalleryLayouterComponent galleryLayout={galleryLayout}/>}
+                {galleryLayout === GALLERY_LAYOUTS.GRID_BOX && <GalleryLayouterComponent galleryLayout={galleryLayout}/>}
             </div>
         );
     }
