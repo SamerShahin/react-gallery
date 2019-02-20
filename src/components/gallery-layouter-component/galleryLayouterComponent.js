@@ -15,19 +15,28 @@ import Gallery from "../gallery";
 class GalleryLayouterComponent extends Component {
     constructor(props) {
         super(props);
-        let styleParams = this.getStyleParams(props.galleryLayout);
-        this.state = {
-            layoutParams: {
-                items: this.changeItemsHeightMasonry(items, styleParams),
-                styleParams,
-                container
-            }
-        };
         this.getLayout = this.getLayout.bind(this);
+        this.getLayoutParams = this.getLayoutParams.bind(this);
         this.changeItemsHeightGrid = this.changeItemsHeightGrid.bind(this);
+
+        this.state = {
+            layoutParams: this.getLayoutParams(props)
+        };
+
+    }
+
+    getLayoutParams(props) {
+        let styleParams = this.getStyleParams(props.galleryLayout);
+        let modifiedItems = this.changeItemsHeightMasonry(items, styleParams);
+        return {
+            styleParams,
+            items: modifiedItems,
+            container
+        }
     }
 
     getStyleParams = function (layout) {
+        console.log("layout", layout);
         return layout === GALLERY_LAYOUTS.GRID ? gridStyleParams : masonryStyleParams;
     };
     changeItemsHeightMasonry = function (items, styleParams) {
@@ -60,14 +69,14 @@ class GalleryLayouterComponent extends Component {
     render() {
         return (
             <div>
-                <Gallery layout={this.getLayout()}/>
+                <Gallery layout={this.getLayout()} galleryLayout={this.props.galleryLayout} />
             </div>
         );
     }
 }
 
 GalleryLayouterComponent.propTypes = {
-    myProp: PropTypes.object
+    galleryLayout: PropTypes.oneOf([GALLERY_LAYOUTS.MASONRY, GALLERY_LAYOUTS.GRID]).isRequired
 };
 
 export default GalleryLayouterComponent;

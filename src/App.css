@@ -22,13 +22,30 @@
 .App-link {
     color: #61dafb;
 }
-.controllers{
+
+.controllers {
     text-align: left;
 }
 
 .item-header, .item-footer {
     background-color: #282c34;
-    color: black;
+    color: white;
+
+}
+
+.item-header label, .item-footer label {
+    margin: auto;
+}
+
+.centering-element {
+    height: 100%;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 @keyframes App-logo-spin {

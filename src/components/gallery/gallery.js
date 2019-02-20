@@ -1,36 +1,68 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {ITEM_HEADER_HEIGHT, ITEM_FOOTER_HEIGHT} from "../../common/constants";
+import {ITEM_HEADER_HEIGHT, ITEM_FOOTER_HEIGHT, GALLERY_LAYOUTS} from "../../common/constants";
 
-const getContainerStyle = item => ({
-    position: 'absolute',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    top: item.offset.top,
-    left: item.offset.left,
-    width: item.width,
-    height: item.height
-});
+const getContainerStyle = (item, galleryLayout) => {
+    let height, top;
+    let K = ITEM_HEADER_HEIGHT + ITEM_FOOTER_HEIGHT;
+    switch (galleryLayout) {
+        case GALLERY_LAYOUTS.MASONRY:
+            height = item.height;
+            top = item.offset.top;
+            break;
+        case GALLERY_LAYOUTS.GRID:
+        default:
+            top = item.offset.top + K * (Math.floor(item.idx / 5));
+            height = item.height + K;
+            break;
+    }
+    return {
+        position: 'absolute',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        left: item.offset.left,
+        width: item.width,
+        top,
+        height
+    }
+};
 
-const getImageStyle = item => ({
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    width: item.width,
-    height: Math.max(item.height - (ITEM_HEADER_HEIGHT + ITEM_FOOTER_HEIGHT), 0),
-    backgroundImage: "url(" + item.dto.url + ")",
+const getImageStyle = (item, galleryLayout) => {
+    let height;
+    let K = ITEM_HEADER_HEIGHT + ITEM_FOOTER_HEIGHT;
 
-});
-const Gallery = ({layout}) => (
+    switch (galleryLayout) {
+        case GALLERY_LAYOUTS.MASONRY:
+            height = Math.max(item.height - K, 0);
+            break;
+        case GALLERY_LAYOUTS.GRID:
+        default:
+            height = item.height;
+            break;
+    }
+
+    return {
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        width: item.width,
+        backgroundImage: "url(" + item.dto.url + ")",
+        height
+
+    }
+};
+const Gallery = ({layout, galleryLayout}) => (
     <div style={{height: layout.height, position: "relative"}}>
-        {layout.items.map(item => (
-            <div style={getContainerStyle(item)} alt={item.idx} key={"gItem-" + item.idx}>
-                <div className="item-header" style={{height: ITEM_HEADER_HEIGHT + "px", width: "100%"}}>
-                    item header
+        {layout.items.map((item) => (
+            <div style={getContainerStyle(item, galleryLayout)} alt={item.idx} key={"gItem-" + item.idx}>
+                <div className="item-header centering-element"
+                     style={{height: ITEM_HEADER_HEIGHT + "px", width: "100%"}}>
+                    <label> item header</label>
                 </div>
-                <div className={"item-image"} style={getImageStyle(item)}>
+                <div className={"item-image"} style={getImageStyle(item, galleryLayout)}>
                 </div>
-                <div className="item-footer" style={{height: ITEM_FOOTER_HEIGHT + "px", width: "100%"}}>
-                    item footer
+                <div className="item-footer centering-element"
+                     style={{height: ITEM_FOOTER_HEIGHT + "px", width: "100%"}}>
+                    <label> item footer</label>
                 </div>
             </div>
         ))}
@@ -38,7 +70,9 @@ const Gallery = ({layout}) => (
 );
 
 Gallery.propTypesypes = {
-    layout: PropTypes.object.isRequired
+    layout: PropTypes.object.isRequired,
+    galleryLayout: PropTypes.oneOf([GALLERY_LAYOUTS.MASONRY, GALLERY_LAYOUTS.GRID]).isRequired
+
 };
 
 export default Gallery;

@@ -9,16 +9,16 @@ class App extends Component {
         super(props);
         this.setGalleryLayout = this.setGalleryLayout.bind(this);
         this.state = {
-            galleryLayout: GALLERY_LAYOUTS.MASONRY
+            galleryLayout: GALLERY_LAYOUTS.GRID
         }
     }
 
     setGalleryLayout(event) {
-        console.log("layout", event.target.value);
         this.setState({galleryLayout: event.target.value});
     }
 
     render() {
+        let {galleryLayout} = this.state;
         return (
             <div className="App">
 
@@ -26,10 +26,14 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo"/>
                 </header>
                 <div onChange={this.setGalleryLayout} className="controllers">
-                    <input type="radio" name="gallery-layout" defaultChecked value={GALLERY_LAYOUTS.MASONRY}/><label>Masonry</label><br/>
-                    <input type="radio" name="gallery-layout" value={GALLERY_LAYOUTS.GRID}/><label>Grid</label><br/>
+                    <input type="radio" name="gallery-layout"
+                           value={GALLERY_LAYOUTS.MASONRY}/><label>Masonry</label><br/>
+                    <input type="radio" name="gallery-layout" value={GALLERY_LAYOUTS.GRID}
+                           defaultChecked/><label>Grid</label><br/>
                 </div>
-                <GalleryLayouterComponent galleryLayour={this.state.galleryLayout}/>
+                {/*a dumb way to force complete re-render once the layout change*/}
+                {galleryLayout === GALLERY_LAYOUTS.MASONRY && <GalleryLayouterComponent galleryLayout={galleryLayout}/>}
+                {galleryLayout === GALLERY_LAYOUTS.GRID && <GalleryLayouterComponent galleryLayout={galleryLayout}/>}
             </div>
         );
     }
