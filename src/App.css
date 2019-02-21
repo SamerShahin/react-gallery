@@ -1,9 +1,11 @@
 body {
     background-color: lightblue;
 }
-.ui.menu{
+
+.ui.menu {
     margin-top: 0;
 }
+
 .App {
     text-align: center;
 }
@@ -62,3 +64,30 @@ body {
         transform: rotate(360deg);
     }
 }
+
+/************************
+* Members List
+*************************/
+.members-list {
+    margin: auto;
+    text-align: initial;
+}
+.members-list .members-list-scrollbar div:nth-child(3){
+    width: 3px !important;
+    margin: 0 6px;
+}
+.members-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 68px 0 0;
+}
+
+.members-list ul li .avatar-icon, .members-list ul li label, .members-list ul li .action-box {
+    display: inline-block;
+}
+
+.members-list ul li .name-container {
+    margin: 0 12px;
+    width: 100%;
+}
+

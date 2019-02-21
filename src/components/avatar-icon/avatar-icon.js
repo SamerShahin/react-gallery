@@ -12,7 +12,7 @@ export default function AvatarIcon({url, radius, onClick, label}) {
         display: "inline-block"
     };
     return (
-        <div style={style} onClick={onClick}>
+        <div style={style} onClick={onClick} className="avatar-icon">
         </div>
     )
 }
