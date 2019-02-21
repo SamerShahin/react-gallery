@@ -9,7 +9,7 @@ class App extends Component {
         super(props);
         this.setGalleryLayout = this.setGalleryLayout.bind(this);
         this.state = {
-            galleryLayout: GALLERY_LAYOUTS.GRID
+            galleryLayout: GALLERY_LAYOUTS.MASONRY
         }
     }
 
@@ -27,9 +27,8 @@ class App extends Component {
                 </header>
                 <div onChange={this.setGalleryLayout} className="controllers">
                     <input type="radio" name="gallery-layout"
-                           value={GALLERY_LAYOUTS.MASONRY}/><label>Masonry</label><br/>
-                    <input type="radio" name="gallery-layout" value={GALLERY_LAYOUTS.GRID}
-                           defaultChecked/><label>Grid</label><br/>
+                           value={GALLERY_LAYOUTS.MASONRY} defaultChecked/><label>Masonry</label><br/>
+                    <input type="radio" name="gallery-layout" value={GALLERY_LAYOUTS.GRID}/><label>Grid</label><br/>
                     <input type="radio" name="gallery-layout" value={GALLERY_LAYOUTS.GRID_BOX}/><label>Grid Box</label><br/>
                 </div>
                 {/*a dumb way to force complete re-render once the layout change*/}
