@@ -1,6 +1,9 @@
 body {
     background-color: lightblue;
 }
+.ui.menu{
+    margin-top: 0;
+}
 .App {
     text-align: center;
 }

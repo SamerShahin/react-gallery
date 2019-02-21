@@ -6,15 +6,17 @@ const getContainerStyle = (item, galleryLayout,columnsCount) => {
     let height, top;
     let K = ITEM_HEADER_HEIGHT + ITEM_FOOTER_HEIGHT;
     switch (galleryLayout) {
-        case GALLERY_LAYOUTS.MASONRY:
-        case GALLERY_LAYOUTS.GRID_BOX:
-            height = item.height;
-            top = item.offset.top;
-            break;
         case GALLERY_LAYOUTS.GRID:
             top = item.offset.top + K * (Math.floor(item.idx / columnsCount));
             height = item.height + K;
             break;
+        case GALLERY_LAYOUTS.MASONRY:
+        case GALLERY_LAYOUTS.GRID_BOX:
+        default:
+            height = item.height;
+            top = item.offset.top;
+            break;
+
     }
     return {
         position: 'absolute',

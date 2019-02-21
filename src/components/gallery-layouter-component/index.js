@@ -1,1 +1,1 @@
-export {default} from './galleryLayouterComponent';
+export {default} from './gallery-layouter-component';
