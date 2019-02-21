@@ -75,7 +75,7 @@ const Gallery = ({layout, galleryLayout}) => {
     )
 };
 
-Gallery.propTypesypes = {
+Gallery.propTypes = {
     layout: PropTypes.object.isRequired,
     galleryLayout: PropTypes.oneOf([GALLERY_LAYOUTS.MASONRY, GALLERY_LAYOUTS.GRID, GALLERY_LAYOUTS.GRID_BOX]).isRequired
 

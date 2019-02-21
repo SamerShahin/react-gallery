@@ -14,20 +14,16 @@ class App extends Component {
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo"/>
                 </header>
-
                 <Router>
-
                     <Menu>
-
-                        <Menu.Item name='editorials'>
+                        <Menu.Item >
                             <Link to={'/gallery'}>Gallery</Link>
                         </Menu.Item>
 
-                        <Menu.Item name='2123213'>
+                        <Menu.Item>
                             <Link to={'/flex'}>Flex Page</Link>
                         </Menu.Item>
                     </Menu>
-
                     <Route path="/gallery" component={GalleryPage}/>
                     <Route path="/flex" component={FlexPage}/>
                 </Router>
