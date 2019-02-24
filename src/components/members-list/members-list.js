@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AvatarIcon from '../avatar-icon';
 import Scrollbars from 'react-custom-scrollbars';
+import CheckBox from "./checkbox";
 
-const ActionBox = () => {
-    return <div className="action-box">
-        <input type="checkbox"/>
-    </div>
+const ActionBox = ({id}) => {
+    return <CheckBox isChecked onChange={(val, id) => {
+        console.log(val, id)
+    }} id={id}/>
 };
 
 class MembersList extends React.Component {
@@ -23,16 +24,19 @@ class MembersList extends React.Component {
                 autoHeightMax={height} className="members-list-scrollbar">
                 <ul>
                     {members.map((member, idx) => (
-                        <li className="centering-element" style={{height: rowHeight}} key={member.id}>
-                            <section className="avatar-icon-container centering-element">
-                                <AvatarIcon label={member.name} radius={13} url={member.url} key={idx}/>
-                            </section>
-                            <section className="name-container">
-                                <label>{member.name}</label>
-                            </section>
-                            <section className="action-container">
-                                <ActionBox/>
-                            </section>
+                        <li style={{height: rowHeight}} key={member.id}>
+                            <div  className="centering-element">
+                                <section className="avatar-icon-container centering-element">
+                                    <AvatarIcon label={member.name} radius={13} url={member.url} key={idx}/>
+                                </section>
+                                <section className="name-container">
+                                    <label>{member.name}</label>
+                                </section>
+                                <section className="action-container">
+                                    <ActionBox id={member.id}/>
+                                </section>
+                            </div>
+                            <hr className="thin-divider"/>
                         </li>
                     ))}
                 </ul>
